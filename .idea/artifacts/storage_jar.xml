@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="storage:jar">
+    <output-path>$PROJECT_DIR$/../server/plugins</output-path>
+    <root id="archive" name="storage.jar">
+      <element id="module-output" name="storage" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
