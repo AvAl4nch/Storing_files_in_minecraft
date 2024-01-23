@@ -8,14 +8,17 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class LoadCommand : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
+    override fun onCommand(
+        sender: CommandSender,
+        command: Command,
+        label: String,
+        args: Array<out String>
+    ): Boolean {
         if (sender is Player) {
             if (sender.isOp) {
-                if (args != null) {
-                    if (args.size < 3) {
-                        sender.sendMessage(ChatColor.RED.toString() + "Usage: /load <x> <y> <z>")
-                        return true
-                    }
+                if (args.size < 3) {
+                    sender.sendMessage(ChatColor.RED.toString() + "Usage: /load <x> <y> <z>")
+                    return true
                 }
 
                 try {

@@ -8,14 +8,19 @@ import org.bukkit.entity.Player
 import org.bukkit.util.Vector
 
 class HelloCommand : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, lable: String, args: Array<out String>?): Boolean {
-        if(sender is Player){
-            if(sender.isOp){
-                if (args != null && args.isNotEmpty()) {
-                        val z = args[0].toDouble()
-                        sender.sendMessage(Component.text("Hello"))
-                        sender.velocity = sender.velocity.add(Vector(0.0, z, 0.0))
-                        return true
+    override fun onCommand(
+        sender: CommandSender,
+        command: Command,
+        label: String,
+        args: Array<out String>
+    ): Boolean {
+        if (sender is Player) {
+            if (sender.isOp) {
+                if (args.isNotEmpty()) {
+                    val z = args[0].toDouble()
+                    sender.sendMessage(Component.text("Hello"))
+                    sender.velocity = sender.velocity.add(Vector(0.0, z, 0.0))
+                    return true
                 }
             }
         }
