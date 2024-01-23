@@ -292,7 +292,7 @@ class StoreCommand : CommandExecutor {
                         "brown_shulker_box"
                     )
 
-                    sender.sendMessage("$fileBytes")
+                    sender.sendMessage("build started...")
                     if (fileBytes != null) {
                         sender.sendMessage("${fileBytes.size}")
                     }
@@ -319,6 +319,9 @@ class StoreCommand : CommandExecutor {
                                             return true
                                         }
                                     } else {
+                                        sender.sendMessage(
+                                            ChatColor.GREEN.toString() + "Done :)"
+                                        )
                                         return true
                                     }
                                     c++
@@ -326,9 +329,6 @@ class StoreCommand : CommandExecutor {
                             }
                         }
                     }
-
-                    sender.sendMessage(ChatColor.GREEN.toString() + "Blocks set at ($x, $y, $z)")
-                    return true
                 } catch (e: NumberFormatException) {
                     sender.sendMessage(ChatColor.RED.toString() + "Invalid coordinates provided.")
                     return true
