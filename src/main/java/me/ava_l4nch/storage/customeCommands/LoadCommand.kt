@@ -5,6 +5,8 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import java.io.BufferedWriter
+import java.io.FileWriter
 
 class LoadCommand : CommandExecutor {
     override fun onCommand(
@@ -16,7 +18,7 @@ class LoadCommand : CommandExecutor {
         if (sender is Player) {
             if (sender.isOp) {
                 if (args.size < 3) {
-                    sender.sendMessage(ChatColor.RED.toString() + "Usage: /load <x> <y> <z>")
+                    sender.sendMessage(ChatColor.RED.toString() + "Usage: /load <x> <y> <z> <path>")
                     return true
                 }
 
@@ -284,28 +286,34 @@ class LoadCommand : CommandExecutor {
                     val y = args?.get(1)?.toDouble() ?: return false
                     val z = args?.get(2)?.toDouble() ?: return false
                     val slotSize = 32
-                    val woldBlocks = mutableListOf<String>()
+                    val woldBlocks = mutableListOf<Int>()
                     var c = 0
                     var currBlock = ""
 
-                    for (si in 0 until 50) {
-                        for (ix in 0 until slotSize) {
-                            for (zi in 0 until slotSize) {
-                                for (yi in 0 until slotSize) {
-                                    val blockType = sender.world.getBlockAt(
-                                        (x + ix).toInt(),
-                                        (y + yi).toInt(),
-                                        (z + zi).toInt()
-                                    ).type
-                                    currBlock = blockType.toString().lowercase()
-                                    if (currBlock == "air"){
-                                        me.ava_l4nch.storage.writeBytesToFile("C:\\Users\\laith\\Desktop\\out.md", woldBlocks.map { it.toInt().toByte() }.toByteArray())
-                                        woldBlocks.add((blocks.indexOf(currBlock) - 128).toString())
-                                        sender.sendMessage(ChatColor.RED.toString() + "file loaded")
-                                        TODO("the problenm is loadint the files ")
-                                        return true
+                    val filePath = args[3]
+
+                    for (syi in 0 until 5) {
+                        for (szi in 0 until 5) {
+                            for (sxi in 0 until 5) {
+                                for (ix in 0 until slotSize) {
+                                    for (yi in 0 until slotSize) {
+                                        for (zi in 0 until slotSize) {
+                                            val blockType = sender.world.getBlockAt(
+                                                (x + ix + sxi * slotSize).toInt(),
+                                                (y + yi + syi * slotSize).toInt(),
+                                                (z + zi + szi * slotSize).toInt()
+                                            ).type
+                                            currBlock = blockType.toString().lowercase()
+                                            if (currBlock == "air") {
+
+                                                val byteArray = woldBlocks.map { it.toByte() }.toByteArray()
+                                                me.ava_l4nch.storage.writeBytesToFile(filePath, byteArray)
+                                                sender.sendMessage(ChatColor.GREEN.toString() + "file loaded to $filePath")
+                                                return true
+                                            }
+                                            woldBlocks.add((blocks.indexOf(currBlock) - 128))
+                                        }
                                     }
-                                    sender.sendMessage(ChatColor.YELLOW.toString() + woldBlocks.toString())
                                 }
                             }
                         }

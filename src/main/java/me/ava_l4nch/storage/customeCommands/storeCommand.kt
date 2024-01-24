@@ -7,8 +7,13 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import java.io.BufferedWriter
+import java.io.FileWriter
+import java.util.*
+
 
 class StoreCommand : CommandExecutor {
+
 
     override fun onCommand(
         sender: CommandSender,
@@ -294,37 +299,43 @@ class StoreCommand : CommandExecutor {
 
                     sender.sendMessage("build started...")
                     if (fileBytes != null) {
-                        sender.sendMessage("${fileBytes.size}")
+                        sender.sendMessage("File size= ${fileBytes.size}")
                     }
 
-                    for (si in 0 until 50) {
-                        for (ix in 0 until slotSize) {
-                            for (yi in 0 until slotSize) {
-                                for (zi in 0 until slotSize) {
-                                    if (c < (fileBytes?.size ?: 0)) {
-                                        val blockIndex = fileBytes!![c].toInt() + 128
-                                        val location = sender.world.getBlockAt(
-                                            (x + ix + si * slotSize).toInt(),
-                                            (y + yi).toInt(),
-                                            (z + zi).toInt()
-                                        ).location
 
-                                        if (blockIndex in 0 until blocks.size) {
-                                            val blockType = blocks[blockIndex].uppercase()
-                                            location.block.type = Material.getMaterial(blockType) ?: Material.STONE
-                                        } else {
-                                            sender.sendMessage(
-                                                ChatColor.RED.toString() + "Invalid block index: $blockIndex"
-                                            )
-                                            return true
+                    for (syi in 0 until 5) {
+                        for (szi in 0 until 5) {
+                            for (sxi in 0 until 5) {
+                                for (ix in 0 until slotSize) {
+                                    for (yi in 0 until slotSize) {
+                                        for (zi in 0 until slotSize) {
+                                            if (c < (fileBytes?.size ?: 0)) {
+                                                val blockIndex: Int = fileBytes!![c].toInt() + 128
+                                                val location = sender.world.getBlockAt(
+                                                    (x + ix + sxi * slotSize).toInt(),
+                                                    (y + yi + syi * slotSize).toInt(),
+                                                    (z + zi + szi * slotSize).toInt()
+                                                ).location
+
+                                                if (blockIndex in 0 until blocks.size) {
+                                                    val blockType = blocks[blockIndex].uppercase()
+                                                    location.block.type =
+                                                        Material.getMaterial(blockType) ?: Material.STONE
+                                                } else {
+                                                    sender.sendMessage(
+                                                        ChatColor.RED.toString() + "Invalid block index: $blockIndex"
+                                                    )
+                                                    return true
+                                                }
+                                            } else {
+                                                sender.sendMessage(
+                                                    ChatColor.GREEN.toString() + "Blocks placed :) starting from $x $y $z"
+                                                )
+                                                return true
+                                            }
+                                            c++
                                         }
-                                    } else {
-                                        sender.sendMessage(
-                                            ChatColor.GREEN.toString() + "Done :)"
-                                        )
-                                        return true
                                     }
-                                    c++
                                 }
                             }
                         }

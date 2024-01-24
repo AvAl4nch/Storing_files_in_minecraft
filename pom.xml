@@ -132,5 +132,10 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.9.22</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-compiler</artifactId>
+            <version>1.9.22</version>
+        </dependency>
     </dependencies>
 </project>
