@@ -1,6 +1,6 @@
 # Storing_files_in_minecraft
 
-the plugin works on minecraft 1.20.4 
+the plugin works on minecraft 1.20.4 on a papermc server
 
 currently working on small files only up to allmost 500 KB 
 
