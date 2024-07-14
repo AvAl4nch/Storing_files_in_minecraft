@@ -13,6 +13,5 @@ currently working on small files only up to allmost 500 KB
 ```
 
 > if you want to create your own word be sure to run `/gamerule randomTickSpeed 0 `
-> the plugin is not 100% ready
 
 
